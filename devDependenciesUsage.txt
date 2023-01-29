@@ -1,0 +1,109 @@
+//--------------------Joi------------------------
+
+validation frame work for nodejs
+
+usage: 
+1. installation- npm install joi or yarn add joi
+2. usage in a schema:
+   create the schema as follows
+---------in the model--------------------
+const mongoose=require("mongoose")
+const Schema=mongoose.Schema
+const schemaObject={
+ name: Joi.string().required().min(value).max(value),
+ email: Joi.string().required().min(value).max(value).email(),
+ password: Joi.string().required().min(value).max(value)
+}
+const userSchema= new Schema(schemaObject)
+
+-------------in the controller (to do the actuall validation with the users detials) -----------------------
+
+const controrllerMethod=(req,res)=>{
+    const validation=Joi.validate(req.body,schemaObject)\
+
+the validation is an object containing 2 property: 1. error 2. value
+if validation is wrong error will be an object containing message of the problem, if validation is correct, error will be null and value will be the object of properties beign
+validated. 
+}
+
+
+//===================TEST DATA====================
+
+{
+  "name": "babatunde eric",
+  "email": "babatundeolatunji74@gmail.com",
+  "password": "1234567"
+}
+
+
+//-------------------------------------Mongoose CRUD methods--------------------------------------
+
+Link for resources: https://mongoosejs.com/docs/queries.html
+
+methods:
+=============================================================
+Model.deleteMany()
+Model.deleteOne()
+Model.find()
+Model.findById()
+Model.findByIdAndDelete()
+Model.findByIdAndRemove()
+Model.findByIdAndUpdate()
+Model.findOne()
+Model.findOneAndDelete()
+Model.findOneAndRemove()
+Model.findOneAndReplace()
+Model.findOneAndUpdate()
+Model.replaceOne()
+Model.updateMany()
+Model.updateOne()
+
+
+
+//----------------------------Hashing passwords------------------------------------------
+
+making use of bcrypt js to harsh passwords
+
+usage:
+
+1. install bcrypt js
+2. const bcrypt=require("bcrypt")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
