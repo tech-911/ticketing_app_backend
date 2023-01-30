@@ -24,4 +24,4 @@ app.use(express.json());
 app.use("/api/user", authRoute);
 app.use("/api/post", postRoute);
 // app.use("/api/posts", postRoute);
-app.listen(4000);
+app.listen(2000);
