@@ -4,6 +4,7 @@ const postRoute = require("./routes/posts");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -18,6 +19,9 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+//Cross-Origin Resource Sharing (CORS) handler
+app.use(cors());
+
 //Middleware
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true })); //middleware for parsing postbody format to object format
