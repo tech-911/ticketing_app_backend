@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const registerValidationMethod = (value) => {
   const registerObject = {
-    name: Joi.string().required().min(4).max(255),
+    name: Joi.string().required().min(6).max(255),
     email: Joi.string().required().min(5).max(255).email(),
     password: Joi.string().required().min(6).max(1024),
   };

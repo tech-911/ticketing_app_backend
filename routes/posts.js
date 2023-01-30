@@ -6,4 +6,3 @@ const { post } = require("../controllers/authController");
 router.get("/", verify, post);
 
 module.exports = router;
- 
