@@ -53,20 +53,19 @@ const login = async (req, res) => {
 
   //===============Checking existence of user by email===============
 
-  const user = await User.findOne({ email: email });
+  let user = await User.findOne({ email: email });
 
   if (!user) return res.status(400).send("Email doesnt exists");
 
   //===============Comapring user input password with that registered on the database===============
-
   const validPassword = await bcrypt.compare(password, user.hashedPassword);
   if (!validPassword) return res.status(400).send("Invalid password");
 
   // Creating jwt token
   const jwtSecretKey = process.env.TOKEN_SECRET;
   const token = jwt.sign({ _id: user._id }, jwtSecretKey);
-  console.log(token);
-  res.header("auth-token", token).send(token);
+  let newUser = { user, token };
+  res.header("auth-token", token).send(newUser);
 };
 
 const post = (req, res) => {

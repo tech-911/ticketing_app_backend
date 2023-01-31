@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
+app.use(cors());
+
 dotenv.config();
 
 mongoose
@@ -20,7 +22,6 @@ mongoose
     console.log(err);
   });
 //Cross-Origin Resource Sharing (CORS) handler
-app.use(cors());
 
 //Middleware
 app.use(express.json());
