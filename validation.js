@@ -5,6 +5,7 @@ const registerValidationMethod = (value) => {
     name: Joi.string().required().min(4).max(255),
     email: Joi.string().required().min(5).max(255).email(),
     password: Joi.string().required().min(6).max(1024),
+    role: Joi.string().required(),
   };
 
   const registerJoiSchema = Joi.object(registerObject);

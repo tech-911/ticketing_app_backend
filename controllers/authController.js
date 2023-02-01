@@ -12,7 +12,7 @@ const index = (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   //===============validation===============
 
   const { error, value } = registerValidationMethod(req.body);
@@ -31,7 +31,7 @@ const register = async (req, res) => {
 
   //======================saving data on DB=======================
   try {
-    const user = await new User({ name, email, hashedPassword });
+    const user = await new User({ name, email, hashedPassword, role });
     const saveValue = await user.save();
     console.log(saveValue);
     await res.send(saveValue);
@@ -41,6 +41,36 @@ const register = async (req, res) => {
   }
 
   //===============create new user on DB===============
+};
+
+const admin_register = async (req, res) => {
+  const { name, email, password, role } = req.body;
+  //===============validation===============
+
+  const { error, value } = registerValidationMethod(req.body);
+
+  if (error) return res.status(400).send(error.details[0].message);
+
+  //===============Checking existence of user===============
+
+  const userExist = await User.findOne({ email: email });
+
+  if (userExist) return res.status(400).send("Email already exists");
+
+  //=====================hash password========================
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  //======================saving data on DB=======================
+  try {
+    const user = await new User({ name, email, hashedPassword, role });
+    const saveValue = await user.save();
+    console.log(saveValue);
+    await res.send(saveValue);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send(err);
+  }
 };
 
 const login = async (req, res) => {
@@ -75,6 +105,7 @@ const post = (req, res) => {
 module.exports = {
   index,
   register,
+  admin_register,
   login,
   post,
 };
