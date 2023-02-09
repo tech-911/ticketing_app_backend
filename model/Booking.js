@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
 const userSchema = new Schema({
   name: {
     type: String,
     required: true,
-    min: 4,
+    min: 3,
     max: 255,
   },
   email: {
@@ -14,21 +13,30 @@ const userSchema = new Schema({
     max: 255,
     min: 5,
   },
-  hashedPassword: {
+  destination: {
     type: String,
     required: true,
-    min: 6,
+    min: 2,
     max: 1024,
   },
-  role: {
+  passangers_number: {
+    type: Number,
+    required: true,
+  },
+  time: {
     type: String,
     required: true,
   },
   date: {
     type: Date,
+    required: true,
     default: Date.now,
+  },
+  car_type: {
+    type: String,
+    required: true,
   },
 });
 
-const Admin = mongoose.model("Admin", userSchema);
-module.exports = { Admin };
+const Booking = mongoose.model("Booking", userSchema);
+module.exports = { Booking };

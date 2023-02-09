@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const {
   registerValidationMethod,
   loginValidationMethod,
-} = require("../validation");
+} = require("../validations/validation");
 
 const index = (req, res) => {
   console.log("a get request was made to /");
@@ -98,14 +98,9 @@ const login = async (req, res) => {
   res.header("auth-token", token).send(newUser);
 };
 
-const post = (req, res) => {
-  res.send(req.user);
-};
-
 module.exports = {
   index,
   register,
   admin_register,
   login,
-  post,
 };
