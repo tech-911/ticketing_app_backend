@@ -56,9 +56,24 @@ const GetNumberofUsersRequest = (req, res) => {
     res.send({ count });
   });
 };
+
+const UpdateBookStatus = (req, res) => {
+  const { _id, status } = req.body;
+
+  Booking.findOneAndUpdate(
+    { _id: _id },
+    { status: status },
+    { new: true },
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
+      res.send(doc);
+    }
+  );
+};
 module.exports = {
   CreateBooking,
   GetBooking,
   GetNumberofUsers,
   GetNumberofUsersRequest,
+  UpdateBookStatus,
 };
