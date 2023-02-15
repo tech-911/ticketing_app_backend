@@ -40,6 +40,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  user_id: {
+    type: String,
+    required: true,
+  },
 });
 
 const Booking = mongoose.model("Booking", userSchema);

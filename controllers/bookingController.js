@@ -4,13 +4,29 @@ const { User } = require("../model/User");
 
 const CreateBooking = async (req, res) => {
   const status = "pending";
-  const { name, email, destination, passangers_number, time, date, car_type } =
-    req.body;
+  const {
+    name,
+    email,
+    destination,
+    passangers_number,
+    time,
+    date,
+    car_type,
+    user_id,
+  } = req.body;
 
   //===============validation===============
   const { error, value } = bookingValidation(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
+
+  //===============Checking if user_id exist=====================
+
+  await User.findOne({ _id: user_id }).catch((err) => {
+    if (err) return res.status(400).send("Invalid user_id! Re-register");
+  });
+
+  // if (!user) return res.status(400).send("user_id not found! re-register");
 
   //======================saving data on DB=======================
   try {
@@ -23,6 +39,7 @@ const CreateBooking = async (req, res) => {
       date,
       car_type,
       status,
+      user_id,
     });
     const saveValue = await user.save();
     console.log(saveValue);

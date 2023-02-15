@@ -9,6 +9,7 @@ const bookingValidation = (value) => {
     time: Joi.string().required(),
     date: Joi.date().min(new Date()).required(),
     car_type: Joi.string().required(),
+    user_id: Joi.string().required(),
   };
 
   const bookingJoiSchema = Joi.object(bookingObject);
