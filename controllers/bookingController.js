@@ -53,10 +53,8 @@ const GetPendingBooking = async (req, res) => {
   Booking.find({ status: "pending" }, (err, docs) => {
     if (err) {
       res.status(400).send(err);
-  
     } else {
       res.send(docs);
-  
     }
   });
 };
@@ -85,6 +83,13 @@ const GetNumberofUsersRequest = (req, res) => {
   });
 };
 
+const GetNumberofAcceptedRequests = (req, res) => {
+  Booking.countDocuments({ status: "accepted" }, (err, count) => {
+    if (err) return res.status(400).send(err);
+    res.send({ count });
+  });
+};
+
 const UpdateBookStatus = (req, res) => {
   const { _id, status } = req.body;
 
@@ -105,4 +110,5 @@ module.exports = {
   GetNumberofUsersRequest,
   UpdateBookStatus,
   GetPendingBooking,
+  GetNumberofAcceptedRequests,
 };
