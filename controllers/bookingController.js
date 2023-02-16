@@ -49,6 +49,17 @@ const CreateBooking = async (req, res) => {
     res.status(404).send(err);
   }
 };
+const GetPendingBooking = async (req, res) => {
+  Booking.find({ status: "pending" }, (err, docs) => {
+    if (err) {
+      res.status(400).send(err);
+  
+    } else {
+      res.send(docs);
+  
+    }
+  });
+};
 const GetBooking = async (req, res) => {
   Booking.find({}, (err, docs) => {
     if (err) {
@@ -93,4 +104,5 @@ module.exports = {
   GetNumberofUsers,
   GetNumberofUsersRequest,
   UpdateBookStatus,
+  GetPendingBooking,
 };

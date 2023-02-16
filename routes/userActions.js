@@ -7,9 +7,11 @@ const {
   GetNumberofUsers,
   GetNumberofUsersRequest,
   UpdateBookStatus,
+  GetPendingBooking,
 } = require("../controllers/bookingController");
 
 router.post("/bookings", verify, CreateBooking);
+router.get("/getpendingbookings", verify, GetPendingBooking);
 router.get("/getbookings", verify, GetBooking);
 router.post("/getusernumber", verify, GetNumberofUsers);
 router.get("/getuserrequest", verify, GetNumberofUsersRequest);
