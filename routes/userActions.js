@@ -9,6 +9,8 @@ const {
   UpdateBookStatus,
   GetPendingBooking,
   GetNumberofAcceptedRequests,
+  GetAcceptedRequests,
+  GetRejectedRequests,
 } = require("../controllers/bookingController");
 
 router.post("/bookings", verify, CreateBooking);
@@ -17,6 +19,8 @@ router.get("/getbookings", verify, GetBooking);
 router.post("/getusernumber", verify, GetNumberofUsers);
 router.get("/getuserrequest", verify, GetNumberofUsersRequest);
 router.get("/acceptedrequestnumber", verify, GetNumberofAcceptedRequests);
+router.get("/acceptedrequest", verify, GetAcceptedRequests);
+router.get("/rejectedrequest", verify, GetRejectedRequests);
 router.put("/updatebookstatus", verify, UpdateBookStatus);
 
 module.exports = router;

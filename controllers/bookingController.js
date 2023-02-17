@@ -58,6 +58,19 @@ const GetPendingBooking = async (req, res) => {
     }
   });
 };
+const GetAcceptedRequests = (req, res) => {
+  Booking.find({ status: "accepted" }, (err, docs) => {
+    if (err) return res.status(400).send(err);
+    res.send(docs);
+  });
+};
+const GetRejectedRequests = (req, res) => {
+  Booking.find({ status: "declined" }, (err, docs) => {
+    if (err) return res.status(400).send(err);
+    res.send(docs);
+  });
+};
+
 const GetBooking = async (req, res) => {
   Booking.find({}, (err, docs) => {
     if (err) {
@@ -111,4 +124,6 @@ module.exports = {
   UpdateBookStatus,
   GetPendingBooking,
   GetNumberofAcceptedRequests,
+  GetRejectedRequests,
+  GetAcceptedRequests,
 };
