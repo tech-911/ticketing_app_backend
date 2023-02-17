@@ -11,9 +11,11 @@ const {
   GetNumberofAcceptedRequests,
   GetAcceptedRequests,
   GetRejectedRequests,
+  DeleteBooking,
 } = require("../controllers/bookingController");
 
 router.post("/bookings", verify, CreateBooking);
+router.delete("/deletebooking", verify, DeleteBooking);
 router.get("/getpendingbookings", verify, GetPendingBooking);
 router.get("/getbookings", verify, GetBooking);
 router.post("/getusernumber", verify, GetNumberofUsers);

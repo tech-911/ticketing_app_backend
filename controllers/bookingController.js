@@ -116,6 +116,19 @@ const UpdateBookStatus = (req, res) => {
     }
   );
 };
+
+const DeleteBooking = (req, res) => {
+  const { _id } = req.body;
+  Booking.deleteOne({ _id: _id }, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).send(err);
+    } else {
+      console.log(docs);
+      res.send(docs);
+    }
+  });
+};
 module.exports = {
   CreateBooking,
   GetBooking,
@@ -126,4 +139,5 @@ module.exports = {
   GetNumberofAcceptedRequests,
   GetRejectedRequests,
   GetAcceptedRequests,
+  DeleteBooking,
 };
