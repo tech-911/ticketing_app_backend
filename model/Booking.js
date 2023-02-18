@@ -44,6 +44,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  data: {
+    type: Object,
+    required: false,
+  },
 });
 
 const Booking = mongoose.model("Booking", userSchema);

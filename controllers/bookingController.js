@@ -125,6 +125,18 @@ const getUserRequest = (req, res) => {
     res.send(docs);
   });
 };
+const saveTransactionId = (req, res) => {
+  const { prevObj = {}, transaction_id, _id } = req.body;
+  Booking.findOneAndUpdate(
+    { _id: _id },
+    { data: { ...prevObj, transaction_id } },
+    { new: true },
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
+      res.send(doc);
+    }
+  );
+};
 
 module.exports = {
   CreateBooking,
@@ -136,4 +148,5 @@ module.exports = {
   GetNumberofAcceptedRequests,
   DeleteBooking,
   getUserRequest,
+  saveTransactionId,
 };
