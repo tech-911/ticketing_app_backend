@@ -17,7 +17,7 @@ const {
 
 router.post("/bookings", verify, CreateBooking);
 router.delete("/deletebooking", verify, DeleteBooking);
-router.post("/getpendingbookings", verify, GetPendingBooking);
+router.get("/getpendingbookings", verify, GetPendingBooking);
 router.get("/getbookings", verify, GetBooking);
 router.post("/getallbookingsbystatus", verify, GetAllBookingbyStatus);
 router.post("/getusernumber", verify, GetNumberofUsers);
