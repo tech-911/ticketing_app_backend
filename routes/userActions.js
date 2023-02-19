@@ -12,12 +12,14 @@ const {
   DeleteBooking,
   getUserRequest,
   saveTransactionId,
+  GetAllBookingbyStatus,
 } = require("../controllers/bookingController");
 
 router.post("/bookings", verify, CreateBooking);
 router.delete("/deletebooking", verify, DeleteBooking);
-router.get("/getpendingbookings", verify, GetPendingBooking);
+router.post("/getpendingbookings", verify, GetPendingBooking);
 router.get("/getbookings", verify, GetBooking);
+router.post("/getallbookingsbystatus", verify, GetAllBookingbyStatus);
 router.post("/getusernumber", verify, GetNumberofUsers);
 router.get("/getuserrequest", verify, GetNumberofUsersRequest); // gets the number of all request both pending accepted and declined of all users
 router.get("/acceptedrequestnumber", verify, GetNumberofAcceptedRequests); //gets the number of all request of users accepted by admin and super admin

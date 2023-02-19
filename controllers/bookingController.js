@@ -58,6 +58,16 @@ const GetPendingBooking = async (req, res) => {
     }
   });
 };
+const GetAllBookingbyStatus = async (req, res) => {
+  const { status } = req.body;
+  Booking.find({ status: status }, (err, docs) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(docs);
+    }
+  });
+};
 
 const GetBooking = async (req, res) => {
   Booking.find({}, (err, docs) => {
@@ -149,4 +159,5 @@ module.exports = {
   DeleteBooking,
   getUserRequest,
   saveTransactionId,
+  GetAllBookingbyStatus,
 };
