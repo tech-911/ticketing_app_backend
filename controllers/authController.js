@@ -1,4 +1,5 @@
 const { User } = require("../model/User");
+const { Booking } = require("../model/Booking");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {
