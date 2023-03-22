@@ -98,9 +98,113 @@ const login = async (req, res) => {
   res.header("auth-token", token).send(newUser);
 };
 
+//=====================Change password for users========================
+
+const change_password = async (req, res) => {
+  //=====================get user request data========================
+
+  const { email, old_password, new_password } = req.body;
+
+  //===================Validate user request object===========================
+
+  const { error, value } = changePasswordValidationMethod(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  //=====================get user object from db for specified user email========================
+
+  let user = await User.findOne({ email: email });
+  if (!user) return res.status(400).send("unAuthorized user");
+
+  //====================check if the old password is correct========================
+
+  const validPassword = await bcrypt.compare(old_password, user.hashedPassword);
+  if (!validPassword) return res.status(400).send("Invalid password");
+
+  //=====================hash password========================
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(new_password, salt);
+
+  //======================saving new password to DB=======================
+
+  User.updateOne({ email: email }, { hashedPassword: hashedPassword })
+    .then((result) => {
+      console.log(result);
+      res.send("password changed");
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(400).send(error);
+    });
+};
+
+//===================Edit user info controller===========================
+
+const edit_user_info = async (req, res) => {
+  //=====================get user request data========================
+
+  const { name, email, _id } = req.body;
+
+  //===================Validate user request object===========================
+
+  const { error, value } = editUserInfoValidationMethod(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  //===================check and update user db===========================
+  try {
+    const response = await User.updateMany(
+      { _id: _id },
+      { $set: { name: name, email: email } }
+    );
+    console.log(response);
+    res.send(response);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
+//===================Delete account controller (Deilcate)===========================
+
+const delete_user_account = async (req, res) => {
+  const { _id } = req.body;
+
+  try {
+    const response1 = await Booking.deleteMany({
+      user_id: _id,
+    });
+
+    console.log(response1);
+
+    const response2 = await User.deleteMany({
+      _id: _id,
+    });
+    console.log(response2);
+    res.send("Account Deleted");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send(err);
+  }
+};
+//=====================get list of all admin created by super user========================
+
+const get_admin_list = (req, res) => {
+  User.find({ role: "admin" }, function (err, admins) {
+    if (err) {
+      console.error(err);
+      return res.status(400).send(err);
+    } else {
+      console.log(admins);
+      res.send(admins);
+    }
+  });
+};
+
 module.exports = {
   index,
   register,
   admin_register,
   login,
+  change_password,
+  edit_user_info,
+  delete_user_account,
+  get_admin_list,
 };
