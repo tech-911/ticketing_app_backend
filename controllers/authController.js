@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const {
   registerValidationMethod,
   loginValidationMethod,
+  changePasswordValidationMethod,
+  editUserInfoValidationMethod,
 } = require("../validations/validation");
 
 const index = (req, res) => {
